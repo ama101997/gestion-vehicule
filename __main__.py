@@ -1,30 +1,67 @@
-from vehicle import Vehicle
-from vehicle_registry import VehicleRegistry
+class VehiculeApp:
+    def __init__(self, nom):
+        self.nom = nom
+        self.vehicules = []
 
-def launch_application():
-    print("Bienvenue dans l'application de gestion de véhicules !")
-    registry = VehicleRegistry()
-    while True:
-        print("\nQue voulez-vous faire ?")
-        print("1. Ajouter un véhicule")
-        print("2. Modifier un véhicule")
-        print("3. Supprimer un véhicule")
-        print("4. Afficher des statistiques")
-        print("5. Quitter l'application")
-        choice = input("> ")
-        if choice == "1":
-            registry.add_vehicle()
-        elif choice == "2":
-            registry.modify_vehicle()
-        elif choice == "3":
-            registry.remove_vehicle()
-        elif choice == "4":
-            registry.show_statistics()
-        elif choice == "5":
-            break
+    def lancer(self):
+        print(f"Bienvenue dans l'application {self.nom} !")
+
+        while True:
+            choix = input("Que voulez-vous faire ? (ajouter/afficher/supprimer/modifier/quitter) ")
+
+            if choix == "ajouter":
+                self.ajouter_vehicule()
+            elif choix == "afficher":
+                self.afficher_vehicules()
+            elif choix == "supprimer":
+                self.supprimer_vehicule()
+            elif choix == "modifier":
+                self.modifier_vehicule()
+            elif choix == "quitter":
+                break
+            else:
+                print("Choix invalide, veuillez réessayer.")
+
+        print(f"Merci d'avoir utilisé l'application {self.nom} !")
+
+    def ajouter_vehicule(self):
+        type_vehicule = input("Quel est le type de véhicule ? (voiture/moto/autobus/métro) ")
+
+        if type_vehicule == "voiture":
+            vehicule = Voiture(input("Marque : "), input("Modèle : "), int(input("Année : ")), input("Couleur : "), input("Plaque minéralogique : "))
+        elif type_vehicule == "moto":
+            vehicule = Moto(input("Marque : "), input("Modèle : "), int(input("Année : ")), input("Couleur : "), int(input("Cylindrée : ")))
+        elif type_vehicule == "autobus":
+            vehicule = Autobus(input("Marque : "), input("Modèle : "), int(input("Année : ")), input("Couleur : "), int(input("Capacité : ")))
+        elif type_vehicule == "métro":
+            vehicule = Metro(input("Marque : "), input("Modèle : "), int(input("Année : ")), input("Couleur : "), int(input("Nombre de wagons : ")))
         else:
-            print("Choix invalide, veuillez réessayer.")
+            print("Type de véhicule invalide, veuillez réessayer.")
+            return
 
+        self.vehicules.append(vehicule)
+        print(f"{type_vehicule.capitalize()} ajouté avec succès !")
 
-if __name__ == "__main__":
-    launch_application()
+    def afficher_vehicules(self):
+        if len(self.vehicules) == 0:
+            print("Aucun véhicule enregistré.")
+            return
+
+        print("Liste des véhicules :")
+        for vehicule in self.vehicules:
+            print(f"- {vehicule}")
+
+    def supprimer_vehicule(self):
+        if len(self.vehicules) == 0:
+            print("Aucun véhicule à supprimer.")
+            return
+
+        immatriculation = input("Quelle est la plaque minéralogique du véhicule à supprimer ? ")
+
+        for i, vehicule in enumerate(self.vehicules):
+            if isinstance(vehicule, Voiture) and vehicule.immatriculation == immatriculation:
+                del self.vehicules[i]
+                print("Voiture supprimée avec succès.")
+                return
+            elif isinstance(vehicule, Moto) and vehicule.immatriculation == immatriculation:
+                del self.vehicules[i
