@@ -1,67 +1,29 @@
-class VehiculeApp:
-    def __init__(self, nom):
-        self.nom = nom
-        self.vehicules = []
-
-    def lancer(self):
-        print(f"Bienvenue dans l'application {self.nom} !")
-
-        while True:
-            choix = input("Que voulez-vous faire ? (ajouter/afficher/supprimer/modifier/quitter) ")
-
-            if choix == "ajouter":
-                self.ajouter_vehicule()
-            elif choix == "afficher":
-                self.afficher_vehicules()
-            elif choix == "supprimer":
-                self.supprimer_vehicule()
-            elif choix == "modifier":
-                self.modifier_vehicule()
-            elif choix == "quitter":
-                break
-            else:
-                print("Choix invalide, veuillez réessayer.")
-
-        print(f"Merci d'avoir utilisé l'application {self.nom} !")
-
-    def ajouter_vehicule(self):
-        type_vehicule = input("Quel est le type de véhicule ? (voiture/moto/autobus/métro) ")
-
-        if type_vehicule == "voiture":
-            vehicule = Voiture(input("Marque : "), input("Modèle : "), int(input("Année : ")), input("Couleur : "), input("Plaque minéralogique : "))
-        elif type_vehicule == "moto":
-            vehicule = Moto(input("Marque : "), input("Modèle : "), int(input("Année : ")), input("Couleur : "), int(input("Cylindrée : ")))
-        elif type_vehicule == "autobus":
-            vehicule = Autobus(input("Marque : "), input("Modèle : "), int(input("Année : ")), input("Couleur : "), int(input("Capacité : ")))
-        elif type_vehicule == "métro":
-            vehicule = Metro(input("Marque : "), input("Modèle : "), int(input("Année : ")), input("Couleur : "), int(input("Nombre de wagons : ")))
-        else:
-            print("Type de véhicule invalide, veuillez réessayer.")
-            return
-
-        self.vehicules.append(vehicule)
-        print(f"{type_vehicule.capitalize()} ajouté avec succès !")
-
-    def afficher_vehicules(self):
-        if len(self.vehicules) == 0:
-            print("Aucun véhicule enregistré.")
-            return
-
-        print("Liste des véhicules :")
-        for vehicule in self.vehicules:
-            print(f"- {vehicule}")
-
-    def supprimer_vehicule(self):
-        if len(self.vehicules) == 0:
-            print("Aucun véhicule à supprimer.")
-            return
-
-        immatriculation = input("Quelle est la plaque minéralogique du véhicule à supprimer ? ")
-
-        for i, vehicule in enumerate(self.vehicules):
-            if isinstance(vehicule, Voiture) and vehicule.immatriculation == immatriculation:
-                del self.vehicules[i]
-                print("Voiture supprimée avec succès.")
-                return
-            elif isinstance(vehicule, Moto) and vehicule.immatriculation == immatriculation:
-                del self.vehicules[i
+from vehicle import Vehicle
+from car import Car
+from motorcycle import Motorcycle
+from bus import Bus
+from subway import Subway
+from vehicle_stats import VehicleStats
+def main():
+# Créer quelques véhicules
+car1 = Car("Toyota", "Corolla", "2018", "Blanc", 4, "Essence")
+car2 = Car("Honda", "Civic", "2020", "Noir", 4, "Essence")
+motorcycle1 = Motorcycle("Kawasaki", "Ninja", "2021", "Vert", "Sportive")
+bus1 = Bus("Volvo", "XC90", "2019", "Rouge", 50)
+subway1 = Subway("Bombardier", "Movia", "2020", "Argenté", 1200)
+# Créer une liste de véhicules
+vehicles = [car1, car2, motorcycle1, bus1, subway1]
+# Créer un objet VehicleStats pour afficher les statistiques
+vehicle_stats = VehicleStats(vehicles)
+# Afficher le nombre total de véhicules
+print(f"Nombre total de véhicules: {vehicle_stats.get_total_vehicles()}")
+# Afficher le nombre de véhicules par type
+print(f"Nombre de voitures: {vehicle_stats.get_vehicle_count_by_type('Car')}")
+print(f"Nombre de motos: {vehicle_stats.get_vehicle_count_by_type('Motorcycle')}")
+print(f"Nombre de bus: {vehicle_stats.get_vehicle_count_by_type('Bus')}")
+print(f"Nombre de métros: {vehicle_stats.get_vehicle_count_by_type('Subway')}")
+# Afficher le nombre de véhicules par couleur
+print(f"Nombre de voitures blanches: {vehicle_stats.get_vehicle_count_by_color('Blanc')}")
+print(f"Nombre de motos vertes: {vehicle_stats.get_vehicle_count_by_color('Vert')}")
+if _name_ == "_main_":
+main()
