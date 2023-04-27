@@ -1,9 +1,9 @@
-class Moto(Vehicule):
-    nb_motos = 0
-
-    def __init__(self, modele: str, nb_roues: int, couleurs: list, plaque: str, marque: str, annee: int, sidecar: bool = False):
-        super().__init__(modele, nb_roues, couleurs, plaque, "Moto")
-        self.marque = marque
-        self.annee = annee
-        self.sidecar = sidecar
-        Moto.nb_motos += 1
+from vehicle import Vehicle
+class Motorcycle(Vehicle):
+def _init_(self, make, model, year, color, style):
+super()._init_(make, model, year, color)
+self.style = style
+def _str_(self):
+return f"{super()._str_()}, {self.style}"
+Partie spécifications techniques
+from vehicle_manager import VehicleManager
